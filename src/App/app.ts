@@ -2,12 +2,16 @@
 import express, { Application } from "express";
 import { createConnection } from "typeorm";
 import cors from "cors";
+import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import "reflect-metadata";
 //interfaces
 import IAppSettings from "../interface/IAppSettings";
 //routers
 import UserRouter from "../routes/user.routes";
+import AuthRouter from "../routes/auth.routes";
+import JWT from "../utils/jwt.utils";
 //
 dotenv.config();
 //
@@ -39,6 +43,7 @@ export default class App {
      * Initialize app modules middlewares.
      */
     useMiddlewares(): void {
+        this.app.use(helmet());
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(morgan("dev"));
@@ -48,7 +53,11 @@ export default class App {
      * Initialize app routes
      */
     useRoutes(): void {
-        this.app.use("/users", UserRouter.init());
+        this.app.use("/api/users", UserRouter.init());
+        this.app.use("/api/auth", AuthRouter.init());
+        this.app.post('/home', JWT.verifyToken, (req: any, res: any) => {
+            return res.send('Hello Home!');
+        });
     }
 
     /**

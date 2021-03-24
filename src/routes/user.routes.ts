@@ -1,7 +1,7 @@
 import { Router } from "express";
 import UserController from "../controllers/user.controller";
 
-export default class UserRouter{
+class UserRouter{
     static router   : Router = Router();
 
     /**
@@ -13,17 +13,18 @@ export default class UserRouter{
      */
     static init(): Router{
         this.router.route("/")
-        
-        .get    (UserController.getUsers)
-        .post   (UserController.createUser);
-        
-         
+
+            .get    (UserController.getUsers)
+            .post   (UserController.createUser);
+
         this.router.route("/:id")
         
-        .get    (UserController.getUser)
-        .put    (UserController.updateUser)
-        .delete (UserController.deleteUser) ;
+            .get    (UserController.getUser)
+            .put    (UserController.updateUser)
+            .delete (UserController.deleteUser) ;
 
         return this.router;
     }
 }
+
+export default UserRouter;
