@@ -5,13 +5,13 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import JWT from "../utils/jwt.utils";
 import "reflect-metadata";
 //interfaces
 import IAppSettings from "../interface/IAppSettings";
 //routers
 import UserRouter from "../routes/user.routes";
 import AuthRouter from "../routes/auth.routes";
-import JWT from "../utils/jwt.utils";
 //
 dotenv.config();
 //

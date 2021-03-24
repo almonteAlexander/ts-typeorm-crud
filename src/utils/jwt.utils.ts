@@ -18,6 +18,16 @@ class JWT{
         );
     }
 
+    /**
+     *
+     *
+     * @static
+     * @param {(Request | any)} req     A request object.
+     * @param {Response}        res     A response object.
+     * @param {NextFunction}    next    A next middleware function.
+     * @return {*}                      {(Promise<Response<JSON> | void>)} A json response | void.
+     * @memberof JWT
+     */
     static async verifyToken(req: Request | any, res: Response, next: NextFunction): Promise<Response<JSON> | void>{
         const token = req.headers['x-access-token'];
         if(token){
