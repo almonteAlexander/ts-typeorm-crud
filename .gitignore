@@ -92,6 +92,7 @@ dist
 
 # vuepress build output
 .vuepress/dist
+.ormconfig.json
 
 # Serverless directories
 .serverless/
