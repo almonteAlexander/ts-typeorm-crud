@@ -1,4 +1,4 @@
-import jwt, { Secret, VerifyErrors} from "jsonwebtoken";
+import jwt, { Secret } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
 class JWT{
@@ -31,15 +31,12 @@ class JWT{
     static async verifyToken(req: Request | any, res: Response, next: NextFunction): Promise<Response<JSON> | void>{
         const token = req.headers['x-access-token'];
         if(token){
-            await jwt.verify(
-                token as string, 
-                process.env.JWT_SECRET as Secret, 
-                (err, decoded: any): Response<JSON> | void => {
-                    if(err) return res.json({ auth: false, token: null, message: err.message });
-                    req.userId = decoded.id;
-                    return next();
-                }
-            );
+            await jwt.verify(token as string, process.env.JWT_SECRET as Secret, 
+            (err, decoded: any): Response<JSON> | void => {
+                if(err) return res.json({ auth: false, token: null, message: err.message });
+                req.userId = decoded.id;
+                return next();
+            });
         }
         else{
             return res.json({ auth: false, token: null, message: 'No token provided!' });
